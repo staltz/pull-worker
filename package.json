@@ -1,6 +1,6 @@
 {
   "name": "pull-worker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Convert a Web Worker API to a duplex pull-stream",
   "main": "index.js",
   "scripts": {
