@@ -48,15 +48,12 @@ module.exports = function toDuplex(workerApi) {
     }
   }
 
-  // const typ = workerApi.close ? 'worker' : 'client';
   workerApi.addEventListener('message', function(event) {
-    // console.log(typ + ' got ', event.data);
     buffer.push(event.data);
     consumeReads();
   });
 
   function read(abort, cb) {
-    // console.log(typ + ' PULL');
     isReceiving = true;
     if (!cb) throw new Error('*must* provide cb');
     if (abort) {
@@ -64,7 +61,6 @@ module.exports = function toDuplex(workerApi) {
         cbs.shift()(abort);
       }
       cb(abort);
-      // console.log(typ + ' will abort');
       isReceiving = false;
       close();
     } else {
@@ -77,17 +73,14 @@ module.exports = function toDuplex(workerApi) {
     isSending = true;
     read(null, function next(end, data) {
       if (end === true) {
-        // console.log(typ + ' will send', { type: 'end' });
         workerApi.postMessage({ type: 'end' });
         isSending = false;
         close();
       } else if (end) {
-        // console.log(typ + ' will send', { type: 'error', data: errOrEnd });
         workerApi.postMessage({ type: 'error', data: errOrEnd });
         isSending = false;
         close();
       } else {
-        // console.log(typ + ' will send', { type: 'data', data: data });
         workerApi.postMessage({ type: 'data', data: data });
         read(null, next);
       }
