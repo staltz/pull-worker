@@ -48,10 +48,16 @@ module.exports = function toDuplex(workerApi) {
     }
   }
 
-  workerApi.addEventListener('message', function(event) {
+  function onMsg(event) {
     buffer.push(event.data);
     consumeReads();
-  });
+  }
+
+  if (workerApi.addEventListener) {
+    workerApi.addEventListener('message', onMsg);
+  } else {
+    workerApi.onmessage = onMsg;
+  }
 
   function read(abort, cb) {
     isReceiving = true;
