@@ -1,0 +1,18 @@
+{
+  "name": "pull-worker",
+  "version": "1.0.0",
+  "description": "Convert a Web Worker API to a duplex pull-stream",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test.js"
+  },
+  "author": "staltz.com",
+  "license": "MIT",
+  "dependencies": {
+    "pull-stream": ">=3"
+  },
+  "devDependencies": {
+    "tape": "^4.8.0",
+    "tiny-worker": "2.1.1"
+  }
+}
