@@ -42,6 +42,7 @@ module.exports = function toDuplex(workerApi) {
             break;
 
           default:
+            (console.warn | console.log)('pull-worker cannot recognize message', msg);
             break;
         }
       }
